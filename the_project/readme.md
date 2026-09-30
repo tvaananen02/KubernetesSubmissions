@@ -16,6 +16,6 @@ kubectl logs -f deployment/the-project
 ### Open in browser
 
 ```bash
-kubectl port-forward deployment/the-project 8000:8000
+kubectl apply -f the_project/todo-app/manifests/service.yaml
 ```
-Then go to http://localhost:8000.
+Then go to http://localhost:8082.
