@@ -10,12 +10,12 @@ The image is pulled from Docker Hub automatically.
 
 ```bash
 k3d cluster start
-kubectl apply -f todo-app/manifests/deployment.yaml
+kubectl apply -f todo-app/manifests/
 kubectl logs -f deployment/the-project
 ```
+
 ### Open in browser
 
-```bash
-kubectl apply -f the_project/todo-app/manifests/
-```
-Then go to http://localhost:8081.
+Go to http://localhost:8081.
+
+The Ingress uses path `/`, the same as Log output's, so only one of them can be applied at a time for now.
