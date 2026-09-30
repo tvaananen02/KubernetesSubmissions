@@ -16,6 +16,6 @@ kubectl logs -f deployment/the-project
 ### Open in browser
 
 ```bash
-kubectl apply -f the_project/todo-app/manifests/service.yaml
+kubectl apply -f the_project/todo-app/manifests/
 ```
-Then go to http://localhost:8082.
+Then go to http://localhost:8081.
