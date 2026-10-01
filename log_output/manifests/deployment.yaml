@@ -12,9 +12,20 @@ spec:
       labels:
         app: log-output
     spec:
+      volumes:
+        - name: shared-files
+          emptyDir: {}
       containers:
-        - name: log-output
-          image: tvaanane02/log-output:1.7
+        - name: writer
+          image: tvaanane02/log-output-writer:1.10
+          volumeMounts:
+            - name: shared-files
+              mountPath: /usr/src/app/files
+        - name: reader
+          image: tvaanane02/log-output-reader:1.10
           env:
             - name: PORT
               value: "8000"
+          volumeMounts:
+            - name: shared-files
+              mountPath: /usr/src/app/files
