@@ -13,19 +13,20 @@ spec:
         app: log-output
     spec:
       volumes:
-        - name: shared-files
-          emptyDir: {}
+        - name: shared-data
+          persistentVolumeClaim:
+            claimName: shared-claim
       containers:
         - name: writer
           image: tvaanane02/log-output-writer:1.10
           volumeMounts:
-            - name: shared-files
+            - name: shared-data
               mountPath: /usr/src/app/files
         - name: reader
-          image: tvaanane02/log-output-reader:1.10
+          image: tvaanane02/log-output-reader:1.11
           env:
             - name: PORT
               value: "8000"
           volumeMounts:
-            - name: shared-files
+            - name: shared-data
               mountPath: /usr/src/app/files
