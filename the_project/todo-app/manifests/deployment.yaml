@@ -12,9 +12,19 @@ spec:
       labels:
         app: the-project
     spec:
+      volumes:
+        - name: image-cache
+          persistentVolumeClaim:
+            claimName: shared-claim
       containers:
         - name: the-project
-          image: tvaanane02/the_project:1.5
+          image: tvaanane02/the_project:1.12
           env:
             - name: PORT
               value: "8000"
+            - name: IMAGE_DIR
+              value: "/usr/src/app/files"
+          volumeMounts:
+            - name: image-cache
+              mountPath: /usr/src/app/files
+              subPath: the-project
