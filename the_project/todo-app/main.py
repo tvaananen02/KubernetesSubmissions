@@ -12,6 +12,11 @@ IMAGE_DIR = os.environ.get("IMAGE_DIR", "/usr/src/app/files")
 IMAGE_URL = os.environ.get("IMAGE_URL", "https://picsum.photos/1200")
 MAX_AGE = int(os.environ.get("IMAGE_MAX_AGE", "600"))  # seconds, 600 = 10 minutes
 IMAGE_PATH = os.path.join(IMAGE_DIR, "image.jpg")
+TODOS = [
+    "Learn Kubernetes",
+    "Finish the course project",
+    "Learn to love K3D",
+]
 fetch_lock = threading.Lock()
 
 def image_age():
@@ -42,13 +47,23 @@ app = FastAPI(lifespan=lifespan)
 
 @app.get("/", response_class=HTMLResponse)
 def root():
-    return """
+    todo_items = "\n".join(f"<li>{todo}</li>" for todo in TODOS)
+    return f"""
     <!DOCTYPE html>
     <html>
       <head><title>Todo app</title></head>
       <body>
         <h1>Todo app</h1>
         <img src="/image" alt="Random image" style="max-width: 600px;">
+
+        <form>
+          <input type="text" name="todo" maxlength="140" placeholder="New todo (max 140 characters)">
+          <button type="button">Send</button>
+        </form>
+
+        <ul>
+          {todo_items}
+        </ul>
       </body>
     </html>
     """
